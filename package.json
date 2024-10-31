@@ -1,0 +1,19 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Forkify App",
+  "main": "index.html",
+  "scripts": {
+    "sv": "live-server",
+    "sass": "sass --watch src/sass/main.scss src/css/main.css",
+    "s": "parcel index.html",
+    "b": "parcel build index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "parcel": "^2.12.0",
+    "sass": "^1.79.1"
+  }
+}
