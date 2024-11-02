@@ -1,6 +1,7 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
 
 //=> controlRecipe
 const controlRecipe = async function () {
@@ -26,17 +27,19 @@ const controlRecipe = async function () {
 //=> controlSearchResults
 const controlSearchResults = async function () {
   try {
+    // 0) Render spinner
+    resultsView.renderSpinner();
+
     // 1) Get query
     const query = searchView.getQuery();
-    console.log(`🚀  query =>`, query);
 
     if (!query) return;
 
     // 2) Get data from query
     await model.loadSearchResults(query);
 
-    // 3) If ok, checkdata (Render View)
-    console.log(model.state.search);
+    // 3) If ok, checkdata (Render Search View)
+    resultsView.render(model.state.search.results);
   } catch (error) {
     console.error(`Error at controlSearchResults (controler.js)`, error);
   }
