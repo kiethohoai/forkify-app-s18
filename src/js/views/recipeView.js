@@ -1,7 +1,10 @@
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
+  #errorMessage = `We could not find that recipe. Please try another one!`;
+  #successMessage = '';
 
+  //todo render(data)
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
@@ -9,6 +12,7 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  //todo renderSpinner()
   renderSpinner() {
     const markup = `
       <div class="spinner">
@@ -17,20 +21,57 @@ class RecipeView {
         </svg>
       </div>
   `;
-    this.#parentElement.innerHTML = '';
+    this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  //todo renderError(message)
+  renderError(message) {
+    const markup = `
+      <div class="error">
+        <div>
+          <svg>
+            <use href="src/img/icons.svg#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message ? message : this.#errorMessage}</p>
+      </div>
+    `;
+
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  //todo renderMessage(message)
+  renderMessage(message) {
+    const markup = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="src/img/icons.svg#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${message ? message : this.#successMessage}</p>
+      </div>
+    `;
+
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  //todo addHandlerRender(handler)
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach((ev) =>
       window.addEventListener(ev, handler),
     );
   }
 
+  //todo #clear()
   #clear() {
     this.#parentElement.innerHTML = '';
   }
 
+  //todo #generateMarkup()
   #generateMarkup() {
     return `
        <figure class="recipe__fig">
@@ -121,6 +162,7 @@ class RecipeView {
     `;
   }
 
+  //todo #generateMarkupIngredient(ing)
   #generateMarkupIngredient(ing) {
     return `
         <li class="recipe__ingredient">

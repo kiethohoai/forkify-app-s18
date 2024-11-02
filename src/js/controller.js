@@ -10,22 +10,21 @@ const recipeContainer = document.querySelector('.recipe');
 //todo controlRecipe
 const controlRecipe = async function () {
   try {
-    // Get id from hashchange
+    // 1) Get id from hashchange
     const id = window.location.hash.slice(1);
-    console.log(`🚀  id =>`, id);
 
     if (!id) return;
 
-    // 0) Render spiner while loading data
+    // 2) Render spiner while loading data
     recipeView.renderSpinner();
 
-    // 1) Loading Recipe
+    // 3) Loading Recipe
     await model.loadRecipe(id);
 
-    // 2) Rendering recipe
+    // 4) Rendering recipe
     recipeView.render(model.state.recipe);
   } catch (error) {
-    console.error(error);
+    recipeView.renderError();
   }
 };
 
