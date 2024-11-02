@@ -3,8 +3,13 @@ import { getJSON } from './helpers.js';
 
 export const state = {
   recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
 };
 
+//=> loadRecipe
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}/${id}`);
@@ -21,6 +26,29 @@ export const loadRecipe = async function (id) {
       ingredients: recipe.ingredients,
     };
   } catch (error) {
+    throw error;
+  }
+};
+
+//=> loadSearchResults
+export const loadSearchResults = async function (query) {
+  try {
+    // Fetch data
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    // Store query
+    state.search.query = query;
+
+    // Store results data
+    state.search.results = data.data.recipes.map((rec) => {
+      return {
+        id: rec.id,
+        title: rec.title,
+        publisher: rec.publisher,
+        image: rec.image_url,
+      };
+    });
+  } catch (error) {
+    console.error(`Error at loadSearchResults (model.js)`, error);
     throw error;
   }
 };
