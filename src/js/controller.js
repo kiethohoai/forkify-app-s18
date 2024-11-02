@@ -18,11 +18,11 @@ const timeout = function (s) {
 //todo controlRecipe
 const controlRecipe = async function () {
   try {
+    // Get id from hashchange
     const id = window.location.hash.slice(1);
-    console.log(`🚀  id =>`, id);
     if (!id) return;
 
-    // 0) Render spiner while loading data
+    // Render spiner while loading data
     recipeView.renderSpinner();
 
     // 1) Loading Recipe
@@ -36,11 +36,11 @@ const controlRecipe = async function () {
 };
 // controlRecipe();
 
-// Ola way
+// Load events one by one (Bad Practice)
 // window.addEventListener('hashchange', controlRecipe);
 // window.addEventListener('load', controlRecipe);
 
-// Load events
+// Load multils events (Good way)
 ['hashchange', 'load'].forEach((ev) =>
   window.addEventListener(ev, controlRecipe),
 );
