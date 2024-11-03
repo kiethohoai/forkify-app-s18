@@ -2,6 +2,7 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 //=> controlRecipe
 const controlRecipe = async function () {
@@ -39,15 +40,28 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) If ok, render search views results (Paginate)
-    // resultsView.render(model.state.search.results);
     resultsView.render(model.getSearchResultsPage());
+
+    // 4) Render initial Pagination Button
+    paginationView.render(model.state.search);
   } catch (error) {
     console.error(`Error at controlSearchResults (controler.js)`, error);
   }
+};
+
+const controlPagination = function (gotoPage) {
+  console.log(`🚀  gotoPage =>`, gotoPage);
+
+  //  Render new Results
+  resultsView.render(model.getSearchResultsPage(gotoPage));
+
+  //  Render new Pagination Button
+  paginationView.render(model.state.search);
 };
 
 //=> Start when App running!
 const init = (function () {
   recipeView.addHandlerRender(controlRecipe);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 })();
