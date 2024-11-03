@@ -45,7 +45,10 @@ const controlSearchResults = async function () {
     // 4) Render initial Pagination Button
     paginationView.render(model.state.search);
   } catch (error) {
-    console.error(`Error at controlSearchResults (controler.js)`, error);
+    console.error(
+      `Error at controlSearchResults (controler.js)`,
+      error,
+    );
   }
 };
 
@@ -59,9 +62,20 @@ const controlPagination = function (gotoPage) {
   paginationView.render(model.state.search);
 };
 
+/* ===== controlServings ==== */
+const controlServings = function (newServings) {
+  // 1) Update the recipe servings (in state)
+  model.updateServings(newServings);
+  // model.updateServings(16);
+
+  // 2) Update the recipe view
+  recipeView.render(model.state.recipe);
+};
+
 //=> Start when App running!
 const init = (function () {
   recipeView.addHandlerRender(controlRecipe);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 })();

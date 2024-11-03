@@ -56,9 +56,25 @@ export const loadSearchResults = async function (query) {
 };
 
 //=> getSearchResultsPage
-export const getSearchResultsPage = function (page = state.search.page) {
+export const getSearchResultsPage = function (
+  page = state.search.page,
+) {
   state.search.page = page;
   const start = (page - 1) * state.search.resultsPePage;
   const end = page * 10;
   return state.search.results.slice(start, end);
+};
+
+/* ===== updateServings ==== */
+export const updateServings = function (newServings) {
+  state.recipe.ingredients.forEach((ing) => {
+    ing.quantity =
+      (ing.quantity * newServings) / state.recipe.servings;
+    state.recipe.servings = newServings;
+
+    /* LOGIC
+    oldQt => oldServings
+    newQt => newServings
+    => newQt = oldQt * newServings / oldServings */
+  });
 };
