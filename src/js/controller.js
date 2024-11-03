@@ -38,8 +38,9 @@ const controlSearchResults = async function () {
     // 2) Get data from query
     await model.loadSearchResults(query);
 
-    // 3) If ok, checkdata (Render Search View)
-    resultsView.render(model.state.search.results);
+    // 3) If ok, render search views results (Paginate)
+    // resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage());
   } catch (error) {
     console.error(`Error at controlSearchResults (controler.js)`, error);
   }
