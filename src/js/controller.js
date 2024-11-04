@@ -15,6 +15,9 @@ const controlRecipe = async function () {
     // 2) Render spiner while loading data
     recipeView.renderSpinner();
 
+    // Update results view to mark selected search results
+    resultsView.update(model.getSearchResultsPage());
+
     // 3) Loading Recipe
     await model.loadRecipe(id);
 
@@ -45,10 +48,7 @@ const controlSearchResults = async function () {
     // 4) Render initial Pagination Button
     paginationView.render(model.state.search);
   } catch (error) {
-    console.error(
-      `Error at controlSearchResults (controler.js)`,
-      error,
-    );
+    console.error(`Error at controlSearchResults (controler.js)`, error);
   }
 };
 
@@ -69,7 +69,8 @@ const controlServings = function (newServings) {
   model.updateServings(newServings);
 
   // 2) Update the recipe view
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 //=> Start when App running!

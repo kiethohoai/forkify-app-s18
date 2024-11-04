@@ -14,3 +14,4 @@
 016 Implementing Pagination - Part 2
 017 Project Planning II
 018 Updating Recipe Servings
+019 Developing a DOM Updating Algorithm
