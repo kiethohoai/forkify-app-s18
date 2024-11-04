@@ -13,4 +13,4 @@
 015 Implementing Pagination - Part 1
 016 Implementing Pagination - Part 2
 017 Project Planning II
-018 Updating Recipe Servings 9p
+018 Updating Recipe Servings

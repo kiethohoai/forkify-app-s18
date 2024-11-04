@@ -20,12 +20,13 @@ class RecipeView extends View {
 
       const btn = e.target.closest('.btn--update-servings');
       if (!btn) return;
-      const updateTo = btn.dataset.updateto;
-      if (+updateTo > 0) handler(+updateTo);
+
+      const updateTo = +btn.dataset.updateto;
+      if (updateTo > 0) handler(updateTo);
     });
   }
 
-  //=> #generateMarkup()
+  /* ===== _generateMarkup() ===== */
   _generateMarkup() {
     return `
        <figure class="recipe__fig">
